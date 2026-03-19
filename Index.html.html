@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ÁUREA BRAIDS</title>
+
+  <!-- Fontes -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'><link rel="stylesheet" href="./style.css">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  
+  <style>
+/* ========================= RESET E CONFIGURAÇÃO GLOBAL ========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  min-height: 100vh;
+  background: #09090d;
+  color: #161616;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* ============================== VARIÁVEIS GLOBAIS ============================== */
+:root {
+  --primary-color: #a8772e;
+  --bg-dark: #242433;
+  --text-light: #fff;
+  --card-bg: #fff;
+  --card-text: #161616;
+}
+
+/* ================================= UTILITÁRIOS ================================= */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* ================================ LOGO E HEADER ================================ */
+.header-top .logo {
+  display: block;
+  margin: 0 auto;
+  width: 300px;
+  height: auto;
+}
+
+/* ========================== MENU DE NAVEGAÇÃO INFERIOR ========================== */
+.navigation {
+  position: fixed;
+   width: 90%;        
+  padding: 0 10px;    
+  bottom: 10px;
+  margin: 0 auto;  
+  left: 50%;
+  transform: translateX(-50%);
+  width: 540px;
+  height: 120px;
+  background: var(--bg-dark);
+  box-shadow: inset 5px 5px 10px rgba(0,0,0,0.5),
+              inset 5px 5px 20px rgba(255,255,255,0.2),
+              inset -5px -5px 15px rgba(0,0,0,0.75);
+  border-radius: 25px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+}
+.navigation li {
+  position: relative;
+  list-style: none;
+  flex: 1;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+.navigation li::before {
+  content: "";
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  background: var(--text-light);
+  border-radius: 50%;
+  transition: 0.5s;
+}
+.navigation li.active::before {
+  background: var(--primary-color);
+  box-shadow: 0 0 5px var(--primary-color),
+              0 0 10px var(--primary-color),
+              0 0 20px var(--primary-color),
+              0 0 30px var(--primary-color),
+              0 0 40px var(--primary-color),
+              0 0 50px var(--primary-color);
+}
+.navigation li a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+.navigation li a .icon {
+  position: absolute;
+  font-size: 1.75em;
+  width: 80px;
+  height: 80px;
+  border-radius: 50px;
+  color: #aaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s 0.2s;
+}
+.navigation li.active a .icon {
+  background: var(--primary-color);
+  color: var(--text-light);
+  transform: translateY(-55px);
+  box-shadow: 5px 5px 7px rgba(0,0,0,0.25),
+              inset 2px 2px 3px rgba(255,255,255,0.25),
+              inset -3px -3px 5px rgba(0,0,0,0.5);
+  transition-delay: 0s;
+}
+.navigation li a .text {
+  position: absolute;
+  font-size: 0.75em;
+  color: var(--text-light);
+  opacity: 0;
+  transform: translateY(20px);
+  padding: 2px 10px;
+  background: var(--primary-color);
+  border-radius: 15px;
+  box-shadow: 5px 5px 7px rgba(0,0,0,0.25),
+              inset -3px -3px 5px rgba(0,0,0,0.5);
+  transition: 0.5s;
+}
+.navigation li.active a .text {
+  opacity: 1;
+  transform: translateY(10px);
+  transition-delay: 0.2s;
+}
+    
+/* ================================ TROCA DE TELAS ================================ */
+.screen {
+  display: none;
+  padding-bottom: 140px;
+}
+.screen.active {
+  display: block;
+}
+
+/* =============================== CATÁLOGO / CARDS =============================== */
+.title-shop {
+  font-family: 'Bangers', cursive;
+  text-align: center;
+  margin: 2rem auto;
+  color: var(--text-light);
+  font-size: 5rem;
+}
+.bd-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  max-width: 1200px;
+  margin: 2rem auto;
+  gap: 2rem;
+}
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: 0.5s;
+  background: var(--card-bg);
+}
+.card-img {
+  width: 180px;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+}
+.card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+.card-title {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  text-align: center;
+  color: var(--card-text);
+  font-weight: bold;
+}
+.card-name {
+  position: absolute;
+  left: -3.5rem;
+  top: 0;
+  width: 3.5rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  background-color: var(--card-text);
+  color: var(--text-light);
+  font-weight: bold;
+  transition: 0.5s;
+}
+
+/* ============================== PRODUTO / DETALHES ============================== */
+.section {
+  width: 100%;
+  max-width: 1100px;
+  margin: 100px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+.product-info {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+#productName {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--text-light);
+  text-align: center;
+  align-self: center;
+}
+#price {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+.section h5 {
+  font-size: 1.5rem;
+  color: var(--text-light);
+}
+.img-area, #productImage {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: 0.5s ease;
+  border-radius: 8px;
+}
+.img-area { width: 450px; height: 400px; }
+#productImage { width: 80%; max-width: 300px; aspect-ratio: 1 / 1; margin-bottom: 15px; }
+.options {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+.option {
+  flex: 1 1 calc(33.333% - 10px);
+  min-width: calc(33.333% - 10px);
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--text-light);
+  cursor: pointer;
+  transition: 0.2s;
+  text-align: center;
+  color: var(--text-light);
+}
+.option.active {
+  background: var(--primary-color);
+  color: var(--text-light);
+  font-weight: 600;
+}
+.btn {
+  display: block;
+  margin: 20px auto 0;
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  background: var(--primary-color);
+  color: var(--text-light);
+}
+.btn ion-icon {
+  margin-right: 8px;
+  font-size: 1.2rem;
+  vertical-align: middle;
+}
+
+/* ================================== CALENDÁRIO ================================== */
+body.calendar-body {
+  background: linear-gradient(135deg, #000000, #000000);
+}
+.calendar {
+  background: var(--card-bg);
+  width: 95vw;
+  max-width: 1400px;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  margin: 2rem auto;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+.header button {
+  padding: 10px 20px;
+  border: none;
+  background: var(--primary-color);
+  color: var(--text-light);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+#month-year {
+  font-size: 32px;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 1px;
+}
+.weekdays, .days {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  gap: 6px;
+}
+.weekdays {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.days div {
+  aspect-ratio: 1;
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+  font-size: 18px;
+  transition: 0.2s;
+  background: #f1f3f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.days div:hover { transform: scale(1.05); }
+.today {
+  background: var(--primary-color) !important;
+  color: var(--text-light);
+  font-weight: bold;
+}
+.days div.has-event::after {
+  content: "⚫";
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  font-size: 16px;
+}
+/* Modal do calendário */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background: var(--card-bg);
+  padding: 25px;
+  width: 400px;
+  max-width: 95%;
+}
+.modal-content input,
+.modal-content textarea,
+.modal-content button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+.modal-content button {
+  background: var(--primary-color);
+  color: var(--text-light);
+  border: none;
+  cursor: pointer;
+}
+.close {
+  float: right;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* ============================ BOTÕES / ÍCONES SOCIAIS ============================ */
+.wrapper {
+  display: inline-flex;
+  list-style: none;
+  padding: 0;
+}
+.wrapper .icon {
+  position: relative;
+  background: #ffffff;
+  border-radius: 50%;
+  padding: 20px;
+  margin: 10px;
+  width: 70px;
+  height: 70px;
+  font-size: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.wrapper .tooltip {
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  background: #ffffff;
+  color: #000;
+  padding: 5px 8px;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  white-space: nowrap;
+  text-align: center;
+}
+.wrapper .tooltip::before {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 8px;
+  background: #ffffff;
+  bottom: -3px;
+  left: 50%;
+  transform: translate(-50%) rotate(45deg);
+}
+.wrapper .icon:hover .tooltip {
+  top: -45px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.wrapper .whatsapp:hover, .wrapper .whatsapp:hover .tooltip, .wrapper .whatsapp:hover .tooltip::before {
+  background: #25D366;
+  color: #fff; }
+  .wrapper .whatsapp i {color: #a8772e; 
+}
+.wrapper .instagram:hover, .wrapper .instagram:hover .tooltip, .wrapper .instagram:hover .tooltip::before {
+  background: #e4405f;
+  color: #fff; }
+  .wrapper .instagram i {color: #a8772e; 
+}
+.social-links {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.social-links .wrapper {
+  display: flex;
+  gap: 15px;
+  padding: 0;
+  list-style: none;
+}
+
+/* ============================= BOTÕES / AGENDAMENTO ============================= */
+.btn-schedule {
+  display: block;
+  width: 50%;
+  max-width: 400px;
+  margin: 30px auto;
+  padding: 15px 0;
+  font-size: 1.2rem;
+  text-align: center;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(168,119,46,0.5);
+  transition: 0.3s ease;
+}
+.btn-schedule:hover {
+  background-color: #c99b4d;
+  transform: translateY(-2px);
+}
+.delete-event{
+  background:#d9534f;
+  border:none;
+  width:35px;
+  height:35px;
+  border-radius:8px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.delete-event ion-icon{
+  color:white;
+  font-size:18px;
+}
+.delete-event:hover{
+  background:#c9302c;
+}
+
+/* ================================= LISTAS / TABS ================================= */
+.schedule-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+.schedule-list li {
+  background: #f8f8f8;
+  padding: 10px 15px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+.tab-btn {
+  padding: 6px 12px;
+  border: none;
+  background: #e0e0e0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.tab-btn.active {
+  background: var(--primary-color);
+  color: #fff;
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ================================== RESPONSIVO =================================== */
+@media (max-width: 480px) {
+  /* Grid de cards: sempre 2 por linha */
+  .bd-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* aumenta o mínimo */
+    gap: 1rem; 
+    padding: 0 0.5rem;
+    justify-content: center; /* centraliza caso sobre espaço */
+  }
+  .card {
+    width: 100%;
+    padding: 1rem 0.5rem;
+  }
+  .card-img {
+    width: 100%;
+    min-height: 150px; /* deixa mais consistente */
+    padding: 0.5rem 0;
+  }
+  .card-name {
+    width: 100%;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+}
+    .event-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px;
+  border-bottom:1px solid #eee;
+  gap:10px;
+}
+.event-info{
+  display:flex;
+  flex-direction:column;
+  font-size:14px;
+}
+
+@media (max-width:480px){
+  .event-item{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:5px;
+  }
+  .event-info{
+    width:100%;
+  }
+}
+  </style>
+  
+</head>
+<!---------------------------------- LOGO E TÍTULO ---------------------------------------->
+<body class="header-top">
+  <img src="https://github.com/PINZINH0/Loja-da-GIH/blob/main/ofc-removebg-preview.png?raw=true" 
+       alt="Logo" class="logo">
+  <h1 class="title-shop">ÁUREA BRAIDS</h1>
+</body>
+<main class="main bd-grid">
+
+<!------------------------------------ CATÁLOGO ------------------------------------------>
+  <div id="catalog-screen" class="screen active">
+      <main class="main bd-grid">
+    <article class="card" data-nome="TRANÇAS NAGÔ">
+        <div class="card-img">
+          <img src="https://github.com/giovanasilvadejesus40-jpg/gypsy/blob/main/e467b41fa85c67c5997ca45ee5d26c2b.jpg?raw=true" alt="Tranças Nagô">
+        </div>
+        <h3 class="card-title">TRANÇAS NAGÔ</h3>
+      </article>
+    <article class="card" data-nome="NAGÔ COM EXTENSÃO">
+        <div class="card-img">
+          <img src="https://github.com/giovanasilvadejesus40-jpg/gypsy/blob/main/cf511f89ae45c43ae98d583b8a6a5576.jpg?raw=true" alt="Nagô C/E">
+        </div>
+        <h3 class="card-title">NAGÔ COM EXTENSÃO</h3>
+      </article>
+    <article class="card" data-nome="BOXEADORA">
+        <div class="card-img">
+          <img src="https://github.com/giovanasilvadejesus40-jpg/gypsy/blob/main/49bd5f95ed6966bd58cd1017ba6ee159.jpg?raw=true" alt="BOXEADORA">
+        </div>
+        <h3 class="card-title">BOXEADORA</h3>
+      </article>
+    <article class="card" data-nome="FAUX LOCS">
+        <div class="card-img">
+          <img src="https://github.com/giovanasilvadejesus40-jpg/gypsy/blob/main/2cf98e71ab53d91225df4775d560c00a.jpg?raw=true" alt="FAUX LOCS">
+        </div>
+        <h3 class="card-title">FAUX LOCS</h3>
+      </article>
+    <article class="card" data-nome="BOX BRAIDS">
+        <div class="card-img">
+          <img src="https://github.com/giovanasilvadejesus40-jpg/gypsy/blob/main/c39f4416d1e9f2ed10cc4670553676af.jpg?raw=true" alt="BOX BRAIDS">
+        </div>
+        <h3 class="card-title">BOX BRAIDS</h3>
+      </article>
+    <article class="card" data-nome="GYPSY BRAIDS">
+        <div class="card-img">
+          <img src="https://github.com/giovanasilvadejesus40-jpg/gypsy/blob/main/515de346385ccdfc9b2732171674a1af.jpg?raw=true" alt="GYPSY BRAIDS">
+        </div>
+        <h3 class="card-title">GYPSY BRAIDS</h3>
+      </article>
+    <article class="card" data-nome="ENTRELACE">
+        <div class="card-img">
+          <img src="https://github.com/giovanasilvadejesus40-jpg/gypsy/blob/main/1b05f12ff279ff06efe3380cba289d99.jpg?raw=true" alt="ENTRELACE">
+        </div>
+        <h3 class="card-title">ENTRELACE</h3>
+      </article>
+    <article class="card" data-nome="PONTO AMERICANO">
+        <div class="card-img">
+          <img src="https://github.com/giovanasilvadejesus40-jpg/gypsy/blob/main/7e612c32f8e4195a8528469623b1af05.jpg?raw=true" alt="PONTO AMERICANO">
+        </div>
+        <h3 class="card-title">PONTO AMERICANO</h3>
+      </article>
+    </main>
+  </div>
+
+<!---------------------------------- TELA PRODUTO ---------------------------------------->
+  <div id="product-screen" class="screen">
+    <div class="background" id="bg"></div>
+    <div class="section">
+      <div class="img-area" id="productImage"></div>
+      <div class="info">
+        <h2 id="productName"></h2>
+        <div class="price" id="price"></div>
+        <div class="description" id="description"></div>
+<!-- TAMANHOS -->
+        <div id="sizesGroup" class="variation-group">
+          <h5 class="variation-title">MODELOS:</h5>
+          <div class="options" id="sizeOptions"></div>
+        </div>
+
+<!----------------------------------- ADICIONAIS ----------------------------------------->
+        <p id="aviso" style="display:none;"></p>
+        <div id="addonsGroup" class="variation-group">
+          <h5 class="variation-title">ADICIONAIS:</h5>
+          <div class="options" id="addonOptions"></div>
+        </div>
+<!-- BOTÃO VOLTAR AO CATÁLOGO -->
+        <button class="btn" onclick="goBack()">
+          <ion-icon name="arrow-back-outline"></ion-icon> Voltar ao catálogo
+        </button>
+      </div>
+    </div>
+  </div>
+
+<!----------------------------------- CALENDÁRIO ----------------------------------------->
+  <div id="calendar-screen" class="screen">
+    <div class="calendar">
+      <div class="header">
+        <button id="prev">&lt;</button>
+        <h2 id="month-year"></h2>
+        <button id="next">&gt;</button>
+      </div>
+      <div class="weekdays">
+        <div>Dom</div><div>Seg</div><div>Ter</div>
+        <div>Qua</div><div>Qui</div><div>Sex</div><div>Sab</div>
+      </div>
+      <div class="days"></div>
+    </div>
+
+<!------------------------------ ÍCONES DE AGENDAMENTOS ------------------------------------->
+    <div class="social-links">
+      <ul class="wrapper">
+        <li class="icon whatsapp">
+          <a href="https://api.whatsapp.com/send/?phone=5538991310260&text&type=phone_number&app_absent=0&utm_source=ig" target="_blank">
+            <span class="tooltip">Whatsapp</span>
+            <span><i class="fab fa-whatsapp"></i></span>
+          </a>
+        </li>
+        <li class="icon instagram">
+          <a href="https://www.instagram.com/aurea.braids?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
+            <span class="tooltip">Instagram</span>
+            <span><i class="fab fa-instagram"></i></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+<!-- MODAL DO CALENDÁRIO -->
+    <div class="modal" id="modal">
+      <div class="modal-content">
+        <span class="close" id="close">X</span>
+        <h3>Novo Evento</h3>
+        <input type="text" id="event-name" placeholder="Nome do evento" required>
+        <input type="datetime-local" id="event-date" required>
+        <textarea id="event-desc" placeholder="Descrição"></textarea>
+        <button id="save-event">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+<!--------------------------------- MODAL RELATÓRIO -------------------------------------->
+  <div id="schedule-report-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="close-report">X</span>
+      <h3>Relatório de Agendamentos</h3>
+     <div class="tabs">
+        <button class="tab-btn active" data-target="upcoming">Próximos</button>
+        <button class="tab-btn" data-target="past">Passados</button>
+      </div>
+     <div id="upcoming" class="tab-content active">
+        <ul id="upcoming-list" class="schedule-list"></ul>
+      </div>
+     <div id="past" class="tab-content">
+        <ul id="past-list" class="schedule-list"></ul>
+      </div>
+    </div>
+  </div>
+
+<!---------------------------------- MENU INFERIOR --------------------------------------->
+  <ul class="navigation">
+    <li class="active" data-screen="catalog-screen">
+      <a href="#">
+        <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+        <span class="text">Catálogo</span>
+      </a>
+    </li>
+    <li data-screen="calendar-screen">
+      <a href="#">
+        <span class="icon"><ion-icon name="calendar-outline"></ion-icon></span>
+        <span class="text">Agenda</span>
+      </a>
+    </li>
+  </ul>
+</main>
+
+  <script>
+/* =========================== MENU INFERIOR - Troca de telas =========================== */
+const menuItems = document.querySelectorAll(".navigation li");
+const screens = document.querySelectorAll(".screen");
+menuItems.forEach(item => {
+  item.addEventListener("click", function () {
+// Remove active de todos os itens
+    menuItems.forEach(i => i.classList.remove("active"));
+    this.classList.add("active");
+// Alterna telas
+    const target = this.getAttribute("data-screen");
+    screens.forEach(screen => screen.classList.remove("active"));
+    document.getElementById(target).classList.add("active");
+  });
+});
+
+/* =========================== CALENDÁRIO - Variáveis globais =========================== */
+const daysContainer = document.querySelector(".days");
+const monthYear = document.getElementById("month-year");
+const prevBtn = document.getElementById("prev");
+const nextBtn = document.getElementById("next");
+const modal = document.getElementById("modal");
+const closeModal = document.getElementById("close");
+const saveBtn = document.getElementById("save-event");
+const eventNameInput = document.getElementById("event-name");
+const eventDateInput = document.getElementById("event-date");
+const eventDescInput = document.getElementById("event-desc");
+let currentDate = new Date();
+let events = JSON.parse(localStorage.getItem("events")) || [];
+
+/* ========================= FUNÇÃO DE HASH - Proteção por senha ======================== */
+async function checkPassword(input) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(input);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray
+    .map(b => b.toString(16).padStart(2, "0"))
+    .join("");
+  return hashHex === "c91e842c22d2f213c0ff3330a8a810c2f8cd53e8608ba5f018d5bc676ceb3574";
+}
+
+/* ============================= RENDERIZAÇÃO DO CALENDÁRIO ============================= */
+function renderCalendar() {
+  const month = currentDate.getMonth();
+  const year = currentDate.getFullYear();
+  const firstDay = new Date(year, month, 1).getDay();
+  const lastDate = new Date(year, month + 1, 0).getDate();
+  monthYear.textContent = `${currentDate.toLocaleString("pt-BR", { month: "long" })} ${year}`;
+  daysContainer.innerHTML = "";
+// Dias vazios do início da semana
+  for (let i = 0; i < firstDay; i++) {
+    daysContainer.appendChild(document.createElement("div"));
+  }
+// Dias do mês
+  for (let i = 1; i <= lastDate; i++) {
+    const day = document.createElement("div");
+    day.textContent = i;
+    const dayString = `${year}-${String(month + 1).padStart(2, "0")}-${String(i).padStart(2, "0")}`;
+// Marca dias com eventos
+    if (events.some(e => e.date.startsWith(dayString))) {
+      day.classList.add("has-event");
+    }
+// Marca o dia atual
+    const today = new Date();
+    if (i === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+      day.classList.add("today");
+    }
+// Ao clicar, abre modal para criar evento
+    day.addEventListener("click", () => {
+      modal.style.display = "flex";
+      eventDateInput.value = `${dayString}T09:00`;
+    });
+    daysContainer.appendChild(day);
+  }
+}
+
+/* ============================== NAVEGAÇÃO DO CALENDÁRIO =============================== */
+prevBtn.addEventListener("click", () => {
+  currentDate.setMonth(currentDate.getMonth() - 1);
+  renderCalendar();
+});
+nextBtn.addEventListener("click", () => {
+  currentDate.setMonth(currentDate.getMonth() + 1);
+  renderCalendar();
+});
+closeModal.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+/* ================================ CADASTRO DE EVENTOS ================================= */
+saveBtn.addEventListener("click", async function(event) {
+  event.preventDefault();
+  const password = prompt("Digite a senha para cadastrar o agendamento:");
+  if (!(await checkPassword(password))) {
+    alert("Senha incorreta! Cadastro cancelado.");
+    return;
+  }
+  const newEvent = {
+    name: eventNameInput.value,
+    date: eventDateInput.value,
+    description: eventDescInput.value
+  };
+  if (!newEvent.name || !newEvent.date) {
+    alert("Preencha o nome e a data do evento!");
+    return;
+  }
+  events.push(newEvent);
+  localStorage.setItem("events", JSON.stringify(events));
+  renderCalendar();
+  modal.style.display = "none";
+// Limpa inputs
+  eventNameInput.value = "";
+  eventDateInput.value = "";
+  eventDescInput.value = "";
+  alert("Agendamento cadastrado com sucesso!");
+});
+
+/* =============================== INICIALIZA CALENDÁRIO ================================ */
+renderCalendar();
+
+/* =========================== BOTÃO VISUALIZAR AGENDAMENTOS ============================ */
+const calendarScreen = document.getElementById("calendar-screen");
+const viewEventsBtn = document.createElement("button");
+viewEventsBtn.classList.add("btn-schedule");
+viewEventsBtn.textContent = "Visualizar agendamentos";
+Object.assign(viewEventsBtn.style, {
+  marginTop: "15px",
+  padding: "10px 20px",
+  backgroundColor: "#a8772e",
+  color: "#fff",
+  border: "none",
+  borderRadius: "8px",
+  cursor: "pointer"
+});
+calendarScreen.appendChild(viewEventsBtn);
+
+/* ======================= MODAL DE VISUALIZAÇÃO DE AGENDAMENTOS ======================== */
+const viewModal = document.createElement("div");
+Object.assign(viewModal.style, {
+  position: "fixed",
+  inset: "0",
+  background: "rgba(0,0,0,0.6)",
+  display: "none",
+  justifyContent: "center",
+  alignItems: "center",
+  zIndex: "1000"
+});
+const viewContent = document.createElement("div");
+Object.assign(viewContent.style, {
+  background: "#fff",
+  padding: "20px",
+  maxWidth: "90%",
+  maxHeight: "80%",
+  overflowY: "auto",
+  borderRadius: "12px",
+  position: "relative"
+});
+const closeView = document.createElement("span");
+closeView.textContent = "X";
+Object.assign(closeView.style, {
+  position: "absolute",
+  top: "10px",
+  right: "15px",
+  cursor: "pointer",
+  fontWeight: "bold",
+  fontSize: "18px"
+});
+viewContent.appendChild(closeView);
+const eventsList = document.createElement("div");
+viewContent.appendChild(eventsList);
+viewModal.appendChild(viewContent);
+document.body.appendChild(viewModal);
+closeView.addEventListener("click", () => {
+  viewModal.style.display = "none";
+});
+
+/* ============================== VISUALIZAÇÃO DE EVENTOS =============================== */
+viewEventsBtn.addEventListener("click", async () => {
+  const password = prompt("Digite a senha para visualizar os agendamentos:");
+  if (!(await checkPassword(password))) {
+    alert("Senha incorreta! Acesso negado.");
+    return;
+  }
+  eventsList.innerHTML = "";
+  if (events.length === 0) {
+    eventsList.textContent = "Nenhum agendamento cadastrado.";
+  } else {
+    events.sort((a, b) => new Date(a.date) - new Date(b.date));
+    const headerRow = document.createElement("div");
+    headerRow.innerHTML = `
+      <div>Data</div>
+      <div>Hora</div>
+      <div>Cliente</div>
+      <div>Descrição</div>
+      <div></div>
+    `;
+    eventsList.appendChild(headerRow);
+    events.forEach((ev, index) => {
+      const evDiv = document.createElement("div");
+      evDiv.classList.add("event-item");
+      const dateObj = new Date(ev.date);
+      const date = dateObj.toLocaleDateString();
+      const time = dateObj.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      Object.assign(evDiv.style, {
+        display: "grid",
+        gridTemplateColumns: "120px 80px 180px 1fr 60px",
+        padding: "10px",
+        borderBottom: "1px solid #eee",
+        alignItems: "center"
+      });
+evDiv.innerHTML = `
+  <div class="event-info">
+    <strong>${ev.name}</strong>
+    <span>📅 ${date} às ${time}</span>
+    <span>${ev.description || "-"}</span>
+  </div>
+  <button class="delete-event">
+    <ion-icon name="trash-outline"></ion-icon>
+  </button>
+`;
+      evDiv.querySelector(".delete-event").addEventListener("click", () => {
+        if (confirm("Deseja realmente excluir este agendamento?")) {
+          events.splice(index, 1);
+          localStorage.setItem("events", JSON.stringify(events));
+          renderCalendar();
+          evDiv.remove();
+        }
+      });
+      eventsList.appendChild(evDiv);
+    });
+  }
+  viewModal.style.display = "flex";
+});
+
+/* =========================== PRODUTOS - Variáveis e seleções =========================== */
+const productScreen = document.getElementById("product-screen");
+const catalogScreen = document.getElementById("catalog-screen");
+const allProducts = {
+  "TRANÇAS NAGÔ": {
+    models: {
+      "Quatro tranças": { price: 50, image: "https://github.com/giovanasilvadejesus40-jpg/gypsy/blob/main/b24b47b719a12c166c6387dfaaabcf2b.jpg?raw=true" },
+      "Seis tranças": { price: 70, image: "https://github.com/giovanasilvadejesus40-jpg/gypsy/blob/main/8a346884b21996866e6f6fcbdfad2556.jpg?raw=true" },
+      "Oito tranças": { price: 80, image: "https://github.com/giovanasilvadejesus40-jpg/gypsy/blob/main/0b052868afa9b36234803c6b490b4cc8.jpg?raw=true" },
+      "Dez tranças": { price: 100, image: "https://github.com/giovanasilvadejesus40-jpg/gypsy/blob/main/9aba7d5abd53ef1f32eb710c62f36d2a.jpg?raw=true" },
+      "Quatorze tranças": { price: 120, image: "https://github.com/giovanasilvadejesus40-jpg/gypsy/blob/main/d3fc779cbf08700dce97301b191d779d.jpg?raw=true" },
+      "Vinte tranças": { price: 170, image: "https://github.com/giovanasilvadejesus40-jpg/gypsy/blob/main/89996504f5bb105faacf7a4db30cb5b0.jpg?raw=true" },
+    }
+  },
+  "NAGÔ COM EXTENSÃO": {
+    models: {
+      "Quatro tranças": { price: 130, image: "https://raw.githubusercontent.com/giovanasilvadejesus40-jpg/tals/refs/heads/main/bd68a53155fbda57cab62eccd193bf5c.jpg" },
+      "Seis tranças": { price: 160, image: "https://raw.githubusercontent.com/giovanasilvadejesus40-jpg/tals/refs/heads/main/c9bf3d6781236c65fafee60b615485fc.jpg" },
+      "Oito tranças": { price: 180, image: "https://raw.githubusercontent.com/giovanasilvadejesus40-jpg/tals/refs/heads/main/39e4fbde34d804899679714ca012ba93.jpg" },
+      "Dez tranças": { price: 230, image: "https://github.com/giovanasilvadejesus40-jpg/tals/blob/main/053b17129cec8a7031e57182cecd0bfc.jpg?raw=true" },
+    }
+  },
+  "BOXEADORA": {
+    models: {
+      "Sem extensão": { price: 35, image: "https://raw.githubusercontent.com/giovanasilvadejesus40-jpg/tals/refs/heads/main/578e81b4cb45e229bcc1b41095fb8c4c.jpg" },
+      "Com extensão": { price: 90, image: "https://raw.githubusercontent.com/giovanasilvadejesus40-jpg/tals/refs/heads/main/ad06ada5f7e4fb463bc974c921651e75.jpg" },
+    }
+  },
+"FAUX LOCS": {
+  aviso: "Material não incluso",
+  models: {
+    "FAUX LOCS": { price: 200, image: "https://raw.githubusercontent.com/giovanasilvadejesus40-jpg/tals/refs/heads/main/2cf98e71ab53d91225df4775d560c00a.jpg" },
+  }
+},
+  "BOX BRAIDS": {
+    sizes: {
+      "PP": { price: 470, image: "https://raw.githubusercontent.com/giovanasilvadejesus40-jpg/gypsy/refs/heads/main/7467137149128c8123794910c1b01812.jpg" },
+      "P": { price: 360, image: "https://raw.githubusercontent.com/giovanasilvadejesus40-jpg/gypsy/refs/heads/main/a6cb03d365cf2d2d4db0b07960e52fa7.jpg" },
+      "M": { price: 320, image: "https://github.com/giovanasilvadejesus40-jpg/gypsy/blob/main/02f93df98e5245796f7c20e9f8f8857a.jpg?raw=true" },
+      "G": { price: 280, image: "https://raw.githubusercontent.com/giovanasilvadejesus40-jpg/gypsy/refs/heads/main/563fb7bd224e5866bd9e20a76ec2b518.jpg" },
+      "GG": { price: 240, image: "https://github.com/giovanasilvadejesus40-jpg/gypsy/blob/main/919c1918d7d78b7f4de34a7737336478.jpg?raw=true" },
+    },
+    addons: {
+    "Nagô simples": 30,
+    "Nagô elaborada": 50
+    }
+  },
+  "GYPSY BRAIDS": {
+    sizes: {
+      "PP": { price: 530, image: "https://raw.githubusercontent.com/giovanasilvadejesus40-jpg/tals/refs/heads/main/097f116dd4b00cdcdf417724d69a72f1.jpg" },
+      "P": { price: 420, image: "https://raw.githubusercontent.com/giovanasilvadejesus40-jpg/tals/refs/heads/main/c4b765cead6b8311560c176e7796cd04.jpg" },
+      "M": { price: 380, image: "https://raw.githubusercontent.com/giovanasilvadejesus40-jpg/tals/refs/heads/main/d1db52c3a6c687eac58111da6466c728.jpg" },
+      "G": { price: 340, image: "https://raw.githubusercontent.com/giovanasilvadejesus40-jpg/tals/refs/heads/main/5ee6f56fd49c7945be0866195aa8408b.jpg" },
+      "GG": { price: 300, image: "https://raw.githubusercontent.com/giovanasilvadejesus40-jpg/tals/refs/heads/main/f4eeb92e134462b2b26818a2c869917f.jpg" },
+    },
+    addons: {
+      "Nagô simples": 30,
+      "Nagô elaborada": 50
+    }
+  },
+  "ENTRELACE": {
+    models: {
+      "Liso": { price: 310, image: "https://github.com/giovanasilvadejesus40-jpg/tals/blob/main/80623988d260aa81989d055fcecda1f4.jpg?raw=true" },
+      "Cacheado": { price: 300, image: "https://github.com/giovanasilvadejesus40-jpg/tals/blob/main/073efecdd067610ebd5056affbc58b01.jpg?raw=true" },
+    }
+  },
+  "PONTO AMERICANO": {
+    models: {
+      "PONTO AMERICANO": { price: 300, image: "https://github.com/giovanasilvadejesus40-jpg/tals/blob/main/7e612c32f8e4195a8528469623b1af05.jpg?raw=true" },
+    }
+  },
+};
+  let currentProduct;
+  let selectedSize;
+  let selectedAddon = null;
+/* CLIQUE NOS CARDS */
+  document.querySelectorAll(".card").forEach(card => {
+  card.addEventListener("click", () => {
+    const productName = card.getAttribute("data-nome");
+    openProduct(productName);
+  });
+});
+
+/* ============================ CLIQUE NOS CARDS DO CATÁLOGO ============================ */
+document.querySelectorAll(".card").forEach(card => {
+  card.addEventListener("click", () => {
+    const productName = card.getAttribute("data-nome");
+    openProduct(productName);
+  });
+});
+
+/* ================================ ABERTURA DE PRODUTO ================================= */
+function openProduct(name) {
+  currentProduct = allProducts[name];
+  selectedSize = null;
+  selectedAddon = null;
+  if (!currentProduct) return console.log("Produto não encontrado:", name);
+// Seleção inicial
+  selectedSize = currentProduct.sizes ? Object.keys(currentProduct.sizes)[0] : Object.keys(currentProduct.models)[0];
+// Alterna telas
+  catalogScreen.classList.remove("active");
+  productScreen.classList.add("active");
+  updateProduct();
+}
+
+/* =============================== ATUALIZAÇÃO DE PRODUTO =============================== */
+function updateProduct() {
+  let price, image, displayName;
+  if (currentProduct.sizes) {
+    price = currentProduct.sizes[selectedSize].price;
+    image = currentProduct.sizes[selectedSize].image;
+    displayName = selectedSize;
+    if (selectedAddon) {
+      price += currentProduct.addons[selectedAddon];
+      displayName += " + " + selectedAddon;
+    }
+  } else {
+    const product = currentProduct.models[selectedSize];
+    price = product.price;
+    image = product.image;
+    displayName = selectedSize;
+  }
+  document.getElementById("productName").innerText = displayName;
+  document.getElementById("price").innerText = "R$ " + price + ",00";
+  document.getElementById("productImage").style.backgroundImage = `url(${image})`;
+// Aviso de “Material não incluso”
+  const aviso = document.getElementById("aviso");
+  if (currentProduct.models && Object.keys(currentProduct.models)[0] === "FAUX LOCS") {
+    aviso.style.display = "block";
+    aviso.innerText = "⚠️ Material não incluso";
+    aviso.style.color = "#e74c3c";
+  } else {
+    aviso.style.display = "none";
+    aviso.innerText = "";
+  }
+  renderOptions();
+}
+
+/* ============== RENDERIZAÇÃO DE OPÇÕES (TAMANHOS / MODELOS / ADICIONAIS) ============== */
+function renderOptions() {
+  const variationTitle = document.querySelector(".variation-title");
+  const sizeContainer = document.getElementById("sizeOptions");
+  const addonContainer = document.getElementById("addonOptions");
+  const addonsGroup = document.getElementById("addonsGroup");
+  sizeContainer.innerHTML = "";
+  addonContainer.innerHTML = "";
+  if (variationTitle) variationTitle.style.display = "none";
+/* --- PRODUTOS COM TAMANHOS --- */
+  if (currentProduct.sizes) {
+    if (variationTitle) variationTitle.style.display = "block";
+    for (const size in currentProduct.sizes) {
+      const div = document.createElement("div");
+      div.className = "option";
+      div.innerText = size;
+      if (selectedSize === size) div.classList.add("active");
+      div.onclick = () => {
+        selectedSize = size;
+        updateProduct();
+      };
+      sizeContainer.appendChild(div);
+    }
+    if (currentProduct.addons) {
+      addonsGroup.style.display = "block";
+      for (const addon in currentProduct.addons) {
+        const div = document.createElement("div");
+        div.className = "option";
+        div.innerText = addon;
+        if (selectedAddon === addon) div.classList.add("active");
+        div.onclick = () => {
+          selectedAddon = (selectedAddon === addon) ? null : addon;
+          updateProduct();
+        };
+        addonContainer.appendChild(div);
+      }
+    } else {
+      addonsGroup.style.display = "none";
+    }
+  } 
+/* --- PRODUTOS SEM TAMANHO --- */
+  else {
+    addonsGroup.style.display = "none";
+    const modelKeys = Object.keys(currentProduct.models);
+    if (modelKeys.length <= 1) return;
+    if (variationTitle) variationTitle.style.display = "block";
+    modelKeys.forEach(model => {
+      const div = document.createElement("div");
+      div.className = "option";
+      div.innerText = model;
+      if (model === selectedSize) div.classList.add("active");
+      div.onclick = () => {
+        selectedSize = model;
+        updateProduct();
+      };
+      sizeContainer.appendChild(div);
+    });
+  }
+}
+
+/* =============================== VOLTAR PARA O CATÁLOGO =============================== */
+function goBack() {
+  productScreen.classList.remove("active");
+  catalogScreen.classList.add("active");
+}
+  </script>
+</body>
+</html>
